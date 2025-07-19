@@ -1,17 +1,14 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const port = 3000;
+const authRoutes = require("./routes/authRoutes");
+const preferencesRoutes = require("./routes/preferencesRoutes");
+const newsRoutes = require("./routes/newsRoutes");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use("/api/auth", authRoutes);
+app.use("/api/preferences", preferencesRoutes);
+app.use("/api/news", newsRoutes);
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log('Something bad happened', err);
-    }
-    console.log(`Server is listening on ${port}`);
-});
-
-
+app.get("/", (req, res) => res.send("Welcome to the News Aggregator API"));
 
 module.exports = app;
